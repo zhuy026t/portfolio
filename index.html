@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Nguyễn Gia Huy</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+</head>
+
+<body>
+
+<!-- ================= BACKGROUND ================= -->
+
+<video id="background-video" autoplay muted loop playsinline>
+    <source src="assets/background.mp4" type="video/mp4">
+</video>
+
+<div class="overlay-dark"></div>
+<div class="overlay-gradient"></div>
+<div class="overlay-noise"></div>
+
+<canvas id="particles"></canvas>
+
+<div class="mouse-light"></div>
+
+<!-- ================= AUDIO ================= -->
+
+<audio id="music" loop>
+    <source src="assets/music.mp3" type="audio/mp3">
+</audio>
+
+<!-- ================= LOADING ================= -->
+<section id="loading">
+    <div class="loading-box">
+        <h1>Hi</h1>
+        <p>[ Press anywhere to enter ]</p>
+    </div>
+</section>
+
+<!-- ================= MAIN WRAPPER ================= -->
+
+<main id="main">
+
+    <div class="profile-card">
+        
+        <div class="card-top">
+            
+            <div class="left-sidebar"> 
+                <div class="visit-box">
+                    <i class="fa-solid fa-eye"></i>
+                    <span>Lượt ghé thăm:</span>
+                    <strong id="visitCount">82</strong>
+                </div>
+
+                <div class="visit-box weather-box">
+                    <i id="weatherIcon" class="fa-solid fa-cloud-sun"></i>
+                    <span id="weatherText">Đang tải...</span>
+                </div>
+            </div>
+
+            <div class="right">
+                <div class="frame">
+                    <h1>Nguyễn Gia Huy</h1>
+                    <h4>Doing things you wouldn't understand.</h4>
+                    <div class="badges">
+                        <div class="badge">Ctrl+C & Ctrl+V</div>
+                        <div class="badge">NodeJS</div>
+                        <div class="badge">Python</div>
+                        <div class="badge">Valorant</div>
+                        <div class="badge">I miss her</div>
+                        <div class="badge">Instalock Phoenix</div>
+                        <div class="badge">Toxic</div>
+                        <div class="badge">Lua code</div>
+
+                    </div>
+                </div>
+
+                <div class="frame">
+                    <h4>About</h4>
+                    <p id="typing">Chat GPT user</p>
+                </div>
+
+                <section class="music-player">
+                    <img src="assets/music.jpg" id="album">
+                    <div class="music-content">
+                        <span>NOW PLAYING</span>
+                        <h2 id="songName">Sinh Ra Đã Là Thứ Đối Lập Nhau (Piano)</h2>
+                        <p>Emcee L (Da LAB) ft. Badbies</p>
+                        <div id="waveform"></div>
+                        <div class="music-controls">
+                            <button id="playPause"><i class="fa-solid fa-pause"></i></button>
+                            <button id="mute"><i class="fa-solid fa-volume-high"></i></button>
+                        </div>
+                    </div>
+                </section>
+
+                <div class="socials">
+                    <a href="https://github.com/huycuti22" target="_blank"><i class="fa-brands fa-github"></i><span>GitHub</span></a>
+                    <a href="https://discord.gg/..." target="_blank"><i class="fa-brands fa-discord"></i><span>Discord</span></a>
+                    <a href="https://www.facebook.com/huy.gia.918671/" target="_blank"><i class="fa-brands fa-facebook"></i><span>Facebook</span></a>
+                    <a href="mailto:nguyengiahuy191080@gmail.com"><i class="fa-solid fa-envelope"></i><span>Contact</span></a>
+                </div>
+            </div>
+        </div> <div class="card-bottom">
+            
+            <div class="frame skills-frame">
+                <h4>My Skills</h4>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h5>Front-end</h5>
+                        <div class="skill-list">
+                            <span><i class="fa-brands fa-html5" style="color: #e34f26;"></i> HTML/CSS</span>
+                            <span><i class="fa-brands fa-js" style="color: #f7df1e;"></i> JavaScript</span>
+                            <span><i class="fa-brands fa-python" style="color: #3776AB; font-size: 2xl;"></i>Python</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h5>Back-end</h5>
+                        <div class="skill-list">
+                            <span><i class="fa-brands fa-node-js" style="color: #68a063;"></i> Node.js</span>
+                            <span><i class="fa-solid fa-database" style="color: #4db33d;"></i> MongoDB</span>
+                            <span><i class="fa-solid fa-server" style="color: #00758f;"></i> MySQL</span>
+                        </div>
+                    </div>
+                    <div class="skill-category">
+                        <h5>DevOps / Tools</h5>
+                        <div class="skill-list">
+                            <span><i class="fa-brands fa-git-alt" style="color: #f34f29;"></i> Git</span>
+                            <span><i class="fa-brands fa-discord" style="color: #5865F2;"></i> Discord API</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="frame timeline-frame">
+                <h4>Học tập & Dự án</h4>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-content">
+                            <span class="timeline-date">2/2026 - Hiện tại</span>
+                            <h5>Phát triển Website CareerCompass AI</h5>
+                            <p>Xây dựng nền tảng website bằng Node.js hỗ trợ học sinh định hướng học tập, tư vấn chọn ngành, nghề nghiệp và cung cấp tài liệu ôn luyện.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div> </div>
+
+</main>
+
+<!-- ================= SCRIPT ================= -->
+
+<script src="script.js"></script>
+
+</body>
+</html>
