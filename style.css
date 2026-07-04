@@ -1667,3 +1667,116 @@ body{
     .3s cubic-bezier(.2,.8,.2,1);
 
 }
+
+/* ================= SIDE PROJECT MENU ================= */
+.side-menu {
+    position: fixed;
+    top: 50%;
+    right: -280px; /* Ẩn menu đi */
+    transform: translateY(-50%);
+    width: 280px;
+    background: rgba(15, 15, 20, 0.7);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: none;
+    border-radius: 16px 0 0 16px;
+    box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
+    transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 1000;
+}
+
+/* Class active để mở menu */
+.side-menu.active {
+    right: 0;
+}
+
+.menu-toggle {
+    position: absolute;
+    top: 50%;
+    left: -40px;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 60px;
+    background: rgba(15, 15, 20, 0.8);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: none;
+    border-radius: 12px 0 0 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background 0.3s, color 0.3s;
+}
+
+.menu-toggle i {
+    color: #fff;
+    font-size: 1.2rem;
+    transition: transform 0.4s;
+}
+
+/* Đổi chiều mũi tên khi menu mở */
+.side-menu.active .menu-toggle i {
+    transform: rotate(180deg);
+}
+
+.menu-toggle:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.menu-content {
+    padding: 25px 20px;
+}
+
+.menu-content h3 {
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 10px;
+}
+
+.project-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.project-list li a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #ccc;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 10px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.project-list li a i {
+    font-size: 1.1rem;
+    color: #888;
+    transition: color 0.3s;
+}
+
+.project-list li a:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    transform: translateX(-5px);
+}
+
+.project-list li a:hover i {
+    color: #fff;
+}
