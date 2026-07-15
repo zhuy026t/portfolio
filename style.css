@@ -1,1074 +1,3562 @@
 /* ===========================
+
    GLOBAL
+
 =========================== */
+
+
 
 *{
+
     margin:0;
+
     padding:0;
+
     box-sizing:border-box;
+
     font-family:"Inter",sans-serif;
+
 }
+
+
 
 body{
+
     overflow:hidden;
+
     background:#050505;
+
     color:white;
+
 }
 
+
+
 /* ===========================
+
    BACKGROUND VIDEO
+
 =========================== */
+
+
 
 #background-video{
+
     position:fixed;
+
     inset:0;
+
     width:100%;
+
     height:100%;
+
     object-fit:cover;
+
     z-index:-10;
+
     filter:brightness(.45) contrast(1.1) saturate(1.2);
+
 }
 
+
+
 /* ===========================
+
    OVERLAYS
+
 =========================== */
+
+
 
 .overlay-dark{
+
     position:fixed;
+
     inset:0;
+
     background:rgba(0,0,0,.55);
+
     z-index:-9;
+
 }
+
+
 
 .overlay-gradient{
+
     position:fixed;
+
     inset:0;
+
     background:radial-gradient(circle at top,
+
         rgba(0,212,255,.15),
+
         transparent 60%),
+
         radial-gradient(circle at bottom,
+
         rgba(255,0,150,.10),
+
         transparent 60%);
+
     z-index:-8;
+
 }
+
+
 
 .overlay-noise{
+
     position:fixed;
+
     inset:0;
+
     background-image:url("assets/noise.png");
+
     opacity:.04;
+
     mix-blend-mode:overlay;
+
     pointer-events:none;
+
     z-index:-7;
+
 }
 
+
+
 /* ===========================
+
    PARTICLES CANVAS
+
 =========================== */
+
+
 
 #particles{
+
     position:fixed;
+
     inset:0;
+
     z-index:-6;
+
 }
 
+
+
 /* ===========================
+
    MOUSE LIGHT
+
 =========================== */
+
+
 
 .mouse-light{
+
     position:fixed;
+
     width:250px;
+
     height:250px;
+
     border-radius:50%;
+
     background:radial-gradient(circle,
+
         rgba(255,255,255,.08),
+
         transparent 60%);
+
     pointer-events:none;
+
     transform:translate(-50%,-50%);
+
     z-index:-5;
+
 }
 
+
+
 /* ===========================
+
    LOADING SCREEN
+
 =========================== */
+
+
 
 #loading{
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(10, 10, 10, 0.85);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-    cursor: pointer;
-    transition: opacity 0.8s ease, visibility 0.8s ease;
+
+    position:fixed;
+
+    inset:0;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    background:#050505;
+
+    z-index:999;
+
 }
+
+
 
 .loading-box{
+
     text-align:center;
-    color: #fff;
-    animation: float 4s ease-in-out infinite;
+
 }
+
+
 
 .loading-box h1{
-    font-size: 3.5rem;
-    font-weight: 800;
-    margin-bottom: 15px;
-    letter-spacing: 3px;
-    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+
+    font-size:32px;
+
+    letter-spacing:2px;
+
+    margin-bottom:10px;
+
 }
+
+
 
 .loading-box p{
-    font-size: 1.1rem;
-    font-weight: 300;
-    color: #a0a0a0;
-    letter-spacing: 2px;
-    animation: pulseText 1.5s infinite alternate;
+
+    color:#aaa;
+
+    font-size:14px;
+
 }
 
-.loading-hidden {
-    opacity: 0;
-    visibility: hidden;
-}
 
-/* ================= ANIMATIONS ================= */
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-10px); }
-}
-
-@keyframes pulseText {
-    0% { opacity: 0.4; }
-    100% { opacity: 1; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
-}
 
 /* ===========================
+
    MAIN LAYOUT
+
 =========================== */
+
+
 
 #main{
+
     position:relative;
+
     height:100vh;
+
     display:flex;
+
     align-items:center;
+
     justify-content:center;
+
     padding:40px;
+
 }
 
+
+
 /* ===========================
+
    PROFILE CARD
+
 =========================== */
+
+
 
 .profile-card{
+
     display:flex;
+
     gap:25px;
+
     width:1000px;
+
     max-width:95%;
+
     padding:25px;
+
     border-radius:28px;
+
+
+
     background:rgba(255,255,255,.03);
+
     border:1px solid rgba(255,255,255,.08);
+
+
+
     backdrop-filter:blur(20px);
+
     box-shadow:0 20px 80px rgba(0,0,0,.6);
-    
-    flex-direction: row; 
-    max-height: 85vh; 
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding-right: 15px;
-    animation: floating 6s ease-in-out infinite;
+
 }
 
-.profile-card::-webkit-scrollbar {
-    width: 6px;
-}
-.profile-card::-webkit-scrollbar-track {
-    background: transparent;
-}
-.profile-card::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.15);
-    border-radius: 10px;
-}
-.profile-card::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.3);
-}
 
-.card-top {
-    display: flex;
-    gap: 20px;
-    flex-shrink: 0;
-}
-
-.card-bottom {
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    flex-shrink: 0;
-    margin-bottom: 20px;
-}
 
 /* ===========================
+
    LEFT PANEL
+
 =========================== */
+
+
 
 .left{
+
     width:220px;
+
     display:flex;
+
     flex-direction:column;
+
     justify-content:center;
+
     gap:20px;
+
 }
 
+
+
 /* ===========================
+
    STATS
+
 =========================== */
+
 .stat{
+
     position:relative;
+
     padding:18px;
+
     border-radius:16px;
+
+
+
     background:rgba(255,255,255,.025);
+
     border:1px solid rgba(255,255,255,.06);
+
+
+
     backdrop-filter:blur(18px);
+
+
+
     transition:.3s ease;
+
+
+
     text-align:center;
-    overflow: hidden;
+
 }
+
+
+
+/* hover nhẹ thôi (đừng glow mạnh) */
 
 .stat:hover{
+
     transform:translateY(-3px);
+
     border-color:rgba(255,255,255,.12);
+
     background:rgba(255,255,255,.04);
+
 }
+
+
+
+/* NUMBER STYLE (QUAN TRỌNG NHẤT) */
 
 .stat h3,
+
 .stat h2{
+
     font-size:28px;
+
     font-weight:800;
-    background:linear-gradient(180deg, #ffffff, #bfc7ff);
+
+
+
+    background:linear-gradient(
+
+        180deg,
+
+        #ffffff,
+
+        #bfc7ff
+
+    );
+
+
+
     -webkit-background-clip:text;
+
     -webkit-text-fill-color:transparent;
+
+
+
     letter-spacing:1px;
+
 }
+
+
+
+/* LABEL */
 
 .stat span{
+
     font-size:12px;
+
     color:rgba(255,255,255,.45);
+
     letter-spacing:1px;
+
 }
+
+
+
+/* subtle top highlight */
 
 .stat::before{
+
     content:"";
+
     position:absolute;
+
     top:0;
+
     left:50%;
+
     transform:translateX(-50%);
+
+
+
     width:60%;
+
     height:1px;
-    background:linear-gradient(90deg, transparent, rgba(255,255,255,.25), transparent);
+
+
+
+    background:linear-gradient(
+
+        90deg,
+
+        transparent,
+
+        rgba(255,255,255,.25),
+
+        transparent
+
+    );
+
 }
 
 /* ===========================
+
    RIGHT PANEL
+
 =========================== */
-.right {
-    flex: 1;
+
+
+
+.profile-card {
+
     display: flex;
-    flex-direction: column;
-    gap: 18px;
-    max-height: none; 
-    overflow: visible;
-    padding-right: 0; 
+
+    flex-direction: column; /* Ép nội dung chảy từ trên xuống dưới */
+
+    gap: 20px;
+
+    
+
+    /* Chuyển thanh cuộn ra ngoài thẻ card lớn */
+
+    max-height: 85vh; 
+
+    overflow-y: auto;
+
+    overflow-x: hidden;
+
+    padding-right: 15px; /* Tránh thanh cuộn dính lề */
+
 }
+
+
+
+/* Tùy chỉnh thanh cuộn cho toàn bộ card */
+
+.profile-card::-webkit-scrollbar {
+
+    width: 6px;
+
+}
+
+.profile-card::-webkit-scrollbar-track {
+
+    background: transparent;
+
+}
+
+.profile-card::-webkit-scrollbar-thumb {
+
+    background: rgba(255, 255, 255, 0.15);
+
+    border-radius: 10px;
+
+}
+
+.profile-card::-webkit-scrollbar-thumb:hover {
+
+    background: rgba(255, 255, 255, 0.3);
+
+}
+
+
+
+.card-top {
+
+    display: flex;
+
+    gap: 20px;
+
+    flex-shrink: 0;
+
+}
+
+
+
+.card-bottom {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+
+    flex-shrink: 0;
+
+    margin-bottom: 20px; /* Thêm khoảng trống nhỏ ở đáy khi cuộn hết cỡ */
+
+}
+
+
+
+/* ===========================
+
+   RIGHT PANEL (Đã gỡ bỏ cuộn lẻ tẻ)
+
+=========================== */
+
+.right {
+
+    flex: 1;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 18px;
+
+    /* Reset các thuộc tính gây khuất */
+
+    max-height: none; 
+
+    overflow: visible;
+
+    padding-right: 0; 
+
+}
+
+
 
 .right > * {
-    flex-shrink: 0; 
+
+    flex-shrink: 0; /* Chống ép lùn thẻ con */
+
 }
 
-/* ===========================
-   FRAME GLASS BLOCK
-=========================== */
-.frame {
-    padding: 18px;
-    border-radius: 18px;
-    background: rgba(255, 255, 255, .03);
-    border: 1px solid rgba(255, 255, 255, .08);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    transition: .3s;
+/* THÊM ĐOẠN NÀY: Ngăn tất cả các thẻ con bên trong cột phải bị bóp méo/ép lùn */
+
+.right > * {
+
     flex-shrink: 0;
-    position: relative;
-    overflow: hidden;
+
 }
+
+
+
+/* ===========================
+
+   FRAME GLASS BLOCK
+
+=========================== */
+
+.frame {
+
+    padding: 18px;
+
+    border-radius: 18px;
+
+    background: rgba(255, 255, 255, .03);
+
+    border: 1px solid rgba(255, 255, 255, .08);
+
+    backdrop-filter: blur(18px);
+
+    -webkit-backdrop-filter: blur(18px);
+
+    transition: .3s;
+
+    
+
+    /* THÊM DÒNG NÀY (Dự phòng) */
+
+    flex-shrink: 0;
+
+}
+
+
 
 .frame:hover {
+
     transform: translateY(-3px);
+
     border-color: rgba(255, 255, 255, .15);
+
 }
 
 /* ===========================
+
    TYPOGRAPHY
+
 =========================== */
+
 .frame h1 {
+
     font-size: 28px;
+
     font-weight: 800;
-    background: linear-gradient(90deg, white, #00d4ff, white);
-    background-size: 300%;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: titleFlow 5s linear infinite;
+
 }
+
+
 
 .frame h4 {
+
     font-size: 14px;
+
     color: #aaa;
+
     margin-top: 5px;
-    margin-bottom: 12px;
+
+    margin-bottom: 12px; /* Thêm khoảng cách với nội dung bên dưới */
+
 }
 
+
+
 /* ===========================
+
    MY SKILLS GRID
+
 =========================== */
+
 .skills-grid {
+
     display: grid;
+
     grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+
     gap: 15px;
+
 }
+
+
 
 .skill-category h5 {
+
     font-size: 12px;
-    color: #888;
+
+    color: #888; /* Màu nhạt hơn h4 để phân cấp thông tin */
+
     margin-bottom: 10px;
+
     text-transform: uppercase;
+
     letter-spacing: 1px;
+
 }
+
+
 
 .skill-list {
+
     display: flex;
+
     flex-direction: column;
+
     gap: 8px;
+
 }
+
+
 
 .skill-list span {
+
     font-size: 13px;
+
     color: #e0e0e0;
+
     display: flex;
+
     align-items: center;
+
     gap: 10px;
-    background: rgba(255, 255, 255, 0.05);
+
+    background: rgba(255, 255, 255, 0.05); /* Card nhỏ lồng trong card lớn */
+
     padding: 8px 12px;
+
     border-radius: 8px;
+
     border: 1px solid transparent;
+
     transition: all 0.3s ease;
+
 }
+
+
 
 .skill-list span:hover {
+
     background: rgba(255, 255, 255, 0.1);
+
     border-color: rgba(255, 255, 255, 0.2);
-    transform: translateX(4px);
+
+    transform: translateX(4px); /* Hiệu ứng trượt nhẹ ngang */
+
 }
 
+
+
 /* ===========================
-   TIMELINE
+
+   TIMELINE (HỌC TẬP & DỰ ÁN)
+
 =========================== */
+
 .timeline {
+
     position: relative;
+
     padding-left: 20px;
+
     border-left: 2px solid rgba(255, 255, 255, 0.1);
+
 }
+
+
 
 .timeline-item {
+
     position: relative;
+
     margin-bottom: 20px;
+
 }
+
+
 
 .timeline-item:last-child {
+
     margin-bottom: 0;
+
 }
+
+
+
+/* Chấm sáng trên dòng thời gian */
 
 .timeline-dot {
+
     position: absolute;
+
     left: -27px;
+
     top: 5px;
+
     width: 12px;
+
     height: 12px;
+
     background: rgba(255, 255, 255, 0.8);
+
     border-radius: 50%;
+
     box-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+
     transition: 0.3s;
+
 }
+
+
 
 .timeline-item:hover .timeline-dot {
+
     background: #fff;
+
     box-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+
 }
+
+
 
 .timeline-content .timeline-date {
+
     display: block;
+
     font-size: 12px;
+
     color: #aaa;
+
     margin-bottom: 4px;
+
 }
+
+
 
 .timeline-content h5 {
+
     font-size: 15px;
+
     color: #fff;
+
     font-weight: 600;
+
     margin-bottom: 4px;
+
 }
+
+
 
 .timeline-content p {
+
     font-size: 13px;
+
     color: #bbb;
+
     line-height: 1.5;
+
 }
 
+
+
 /* ===========================
+
    BADGES
+
 =========================== */
+
+
+
 .badges{
+
     display:flex;
+
     flex-wrap:wrap;
+
     gap:8px;
+
     margin-top:12px;
+
 }
+
+
 
 .badge{
+
     padding:6px 10px;
+
     font-size:12px;
+
     border-radius:8px;
+
     background:rgba(255,255,255,.05);
+
     border:1px solid rgba(255,255,255,.08);
-    transition:.25s;
+
 }
 
-.badge:hover{
-    transform: translateY(-2px) scale(1.05);
-    background: rgba(0,212,255,.15);
-    border-color: rgba(0,212,255,.45);
-}
+
 
 /* ===========================
+
    SOCIALS
+
 =========================== */
-.socials{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:18px;
-    margin-top:25px;
-}
+
+
 
 .socials a{
-    position:relative;
-    overflow:hidden;
+
     display:flex;
+
     align-items:center;
-    justify-content:center;
-    gap:14px;
-    height:72px;
-    border-radius:18px;
+
+    gap:8px;
+
+    padding:10px;
+
+    margin:6px 0;
+
+    border-radius:10px;
+
     text-decoration:none;
-    color:#fff;
-    font-size:17px;
-    font-weight:700;
-    background:rgba(255,255,255,.035);
-    border:1px solid rgba(255,255,255,.08);
-    backdrop-filter:blur(18px);
-    transition:.35s cubic-bezier(.2,.8,.2,1);
+
+    color:white;
+
+    background:rgba(255,255,255,.03);
+
+    border:1px solid rgba(255,255,255,.06);
+
+    transition:.3s;
+
 }
 
-.socials a i{
-    font-size:22px;
-    transition:transform .7s cubic-bezier(.34,1.56,.64,1);
-}
+
 
 .socials a:hover{
-    transform:translateY(-6px);
-    background:rgba(255,255,255,.055);
+
+    transform:translateX(5px);
+
+    border-color:rgba(0,212,255,.4);
+
 }
 
-.socials a:hover i{
-    transform:rotate(360deg) scale(1.15);
+.github:hover{
+
+
+
+    border-color:white;
+
+
+
+    box-shadow:0 0 30px rgba(255,255,255,.15);
+
+
+
 }
 
-.socials a::before{
-    content:"";
-    position:absolute;
-    left:-120%;
-    top:0;
-    width:60%;
-    height:100%;
-    background:linear-gradient(90deg, transparent, rgba(255,255,255,.15), transparent);
-    transform:skewX(-20deg);
-    transition:.8s;
+
+
+.discord:hover{
+
+
+
+    border-color:#5865F2;
+
+
+
+    color:#5865F2;
+
+
+
+    box-shadow:0 0 35px rgba(88,101,242,.3);
+
+
+
 }
 
-.socials a:hover::before{
-    left:160%;
+
+
+.spotify:hover{
+
+
+
+    border-color:#1DB954;
+
+
+
+    color:#1DB954;
+
+
+
+    box-shadow:0 0 35px rgba(29,185,84,.25);
+
+
+
 }
 
-.github:hover{ border-color:white; box-shadow:0 0 30px rgba(255,255,255,.15); }
-.discord:hover{ border-color:#5865F2; color:#5865F2; box-shadow:0 0 35px rgba(88,101,242,.3); }
-.spotify:hover{ border-color:#1DB954; color:#1DB954; box-shadow:0 0 35px rgba(29,185,84,.25); }
-.contact:hover{ border-color:#00d4ff; color:#00d4ff; box-shadow:0 0 35px rgba(0,212,255,.25); }
+
+
+.contact:hover{
+
+
+
+    border-color:#00d4ff;
+
+
+
+    color:#00d4ff;
+
+
+
+    box-shadow:0 0 35px rgba(0,212,255,.25);
+
+
+
+}
+
+
 
 /* ===========================
+
    MUSIC CARD
+
 =========================== */
+
+
+
 .music-player{
+
+
+
     display:flex;
+
+
+
     align-items:center;
+
+
+
     gap:28px;
+
+
+
     margin:25px 0;
+
+
+
     padding:0;
+
+
+
     background:none;
+
+
+
     border:none;
+
+
+
     box-shadow:none;
+
+
+
 }
+
+
 
 .music-player img{
+
+
+
     width:95px;
+
+
+
     height:95px;
+
+
+
     border-radius:18px;
+
+
+
     object-fit:cover;
+
+
+
     cursor:pointer;
+
+
+
     transition:.35s;
+
+
+
 }
+
+
 
 .music-player img:hover{
+
+
+
     transform:scale(1.08) rotate(-4deg);
+
+
+
 }
+
+
 
 .music-content{
+
+
+
     flex:1;
+
+
+
 }
+
+
 
 .music-content span{
+
+
+
     color:#777;
+
+
+
     font-size:12px;
+
+
+
     letter-spacing:3px;
+
+
+
 }
+
+
 
 .music-content h2{
+
+
+
     margin-top:4px;
+
+
+
     font-size:30px;
+
+
+
     font-weight:700;
+
+
+
 }
+
+
 
 .music-content p{
+
+
+
     color:#9b9b9b;
+
+
+
     margin-top:4px;
+
+
+
 }
+
+
 
 .music-controls{
+
+
+
     display:flex;
+
+
+
     gap:15px;
+
+
+
     margin-top:20px;
+
+
+
 }
+
+
 
 .music-controls button{
+
+
+
     width:46px;
+
+
+
     height:46px;
+
+
+
     border:none;
+
+
+
     border-radius:50%;
+
+
+
     background:rgba(255,255,255,.06);
+
+
+
     color:white;
+
+
+
     cursor:pointer;
+
+
+
     transition:.3s;
-    position: relative;
-    overflow: hidden;
+
+
+
 }
+
+
 
 .music-controls button:hover{
+
+
+
     transform:scale(1.15);
+
+
+
     background:rgba(255,255,255,.12);
-}
 
-.music-card.playing{
-    border-color:rgba(0,212,255,.5);
-    animation:musicGlow 2.5s infinite;
-}
 
-.music-card.playing #album{
-    filter:brightness(1.1) saturate(1.3);
+
 }
 
 /* ===========================
+
    WEATHER
+
 =========================== */
+
+/* --- WEATHER WIDGET --- */
+
 .weather-box {
-    margin-top: 15px;
+
+    margin-top: 15px; /* Tạo khoảng cách với ô Lượt ghé thăm */
+
     display: flex;
+
     align-items: center;
+
     gap: 10px;
+
+    /* Kế thừa toàn bộ hiệu ứng kính mờ của .visit-box mà bạn đã làm */
+
 }
+
+
 
 .weather-box i {
+
     font-size: 1.2rem;
-    color: #fff;
+
+    color: #fff; /* Hoặc màu gradient tùy bạn */
+
 }
+
+
 
 .weather-box span {
+
     font-weight: 500;
+
     font-size: 0.95rem;
+
     color: #e0e0e0;
+
 }
 
 /* ===========================
-   TIME & SEEK BAR
+
+   TIME
+
 =========================== */
+
+
+
 .time{
+
     display:flex;
+
     justify-content:space-between;
+
     font-size:12px;
+
     color:#777;
+
     margin-top:10px;
+
 }
+
+
+
+/* ===========================
+
+   SEEK BAR
+
+=========================== */
+
+
 
 #seek{
+
     width:100%;
+
     margin-top:8px;
+
+
+
     appearance:none;
+
     height:6px;
+
     border-radius:50px;
+
+
+
     background:#1f1f1f;
+
     overflow:hidden;
+
     cursor:pointer;
+
 }
+
+
+
+/* Chrome */
 
 #seek::-webkit-slider-thumb{
+
     appearance:none;
+
     width:12px;
+
     height:12px;
+
     border-radius:50%;
+
     background:white;
+
     box-shadow:-500px 0 0 500px #00d4ff;
+
 }
 
-#seek::-moz-range-track{ background:#1f1f1f; height:6px; }
-#seek::-moz-range-progress{ background:#00d4ff; height:6px; }
+
+
+/* Firefox */
+
+#seek::-moz-range-track{
+
+    background:#1f1f1f;
+
+    height:6px;
+
+}
+
+
+
+#seek::-moz-range-progress{
+
+    background:#00d4ff;
+
+    height:6px;
+
+}
+
+
 
 /* ===========================
+
    CONTROLS
+
 =========================== */
+
+
+
 .controls{
+
     display:flex;
+
     gap:12px;
+
     margin-top:14px;
+
 }
 
+
+
 .controls button{
+
     width:40px;
+
     height:40px;
+
+
+
     border:none;
+
     border-radius:12px;
+
+
+
     background:rgba(255,255,255,.04);
+
     color:white;
+
+
+
     cursor:pointer;
+
     transition:.25s;
+
+
+
     display:flex;
+
     align-items:center;
+
     justify-content:center;
-    position: relative;
-    overflow: hidden;
+
 }
+
+
 
 .controls button:hover{
+
     transform:translateY(-2px) scale(1.08);
+
     background:rgba(0,212,255,.2);
+
     box-shadow:0 0 20px rgba(0,212,255,.15);
+
 }
 
-.controls button::after,
-.socials a::after{
-    content:"";
-    position:absolute;
-    width:0;
-    height:0;
-    border-radius:50%;
-    background:rgba(255,255,255,.2);
-    transition:.45s;
+
+
+/* ===========================
+
+   PLAY STATE GLOW (JS hook)
+
+=========================== */
+
+
+
+.music-card.playing{
+
+    border-color:rgba(0,212,255,.5);
+
+    box-shadow:0 0 25px rgba(0,212,255,.08);
+
 }
 
-.controls button:hover::after,
-.socials a:hover::after{
-    width:220px;
-    height:220px;
+
+
+.music-card.playing #album{
+
+    filter:brightness(1.1) saturate(1.3);
+
 }
 
 /* ===========================================
+
    LIVE STATS
+
 =========================================== */
+
+
+
 .stats{
+
     display:grid;
+
     grid-template-columns:repeat(3,1fr);
+
     gap:14px;
+
 }
 
-/* ===========================================
-   DISCORD CARD
-=========================================== */
-.discord{ position:relative; }
-.discord h4{ margin-bottom:18px; }
-.discord-status{
-    display:flex;
-    align-items:center;
-    gap:16px;
-}
-.status-dot{
-    width:14px;
-    height:14px;
-    border-radius:50%;
-    background:#43b581;
-    box-shadow: 0 0 15px #43b581, 0 0 35px #43b581;
-    animation:pulse 2s infinite;
-}
-.discord-info{ flex:1; }
-.discord-info h3{ font-size:18px; }
-.discord-info p{ color:#aaa; margin-top:4px; }
-.activity{
-    margin-top:15px;
-    padding:12px;
-    border-radius:14px;
-    background:rgba(255,255,255,.03);
-    border:1px solid rgba(255,255,255,.05);
-    color:#cfcfcf;
+
+
+.stat{
+
+    position:relative;
+
+    overflow:hidden;
+
+
+
+    padding:18px;
+
+
+
+    border-radius:18px;
+
+
+
+    background:
+
+        linear-gradient(
+
+            180deg,
+
+            rgba(255,255,255,.06),
+
+            rgba(255,255,255,.02)
+
+        );
+
+
+
+    border:1px solid rgba(255,255,255,.08);
+
+
+
+    transition:.35s;
+
 }
 
-/* ===========================================
-   LIVE VIEWERS & SECTION TITLE
-=========================================== */
-.live-view{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    margin-top:18px;
+
+
+.stat::before{
+
+
+
+    content:"";
+
+
+
+    position:absolute;
+
+
+
+    inset:-2px;
+
+
+
+    background:linear-gradient(
+
+        130deg,
+
+        transparent,
+
+        rgba(255,255,255,.15),
+
+        transparent
+
+    );
+
+
+
+    transform:translateX(-120%);
+
+
+
+}
+
+
+
+.stat:hover::before{
+
+
+
+    animation:shine 1s forwards;
+
+
+
+}
+
+
+
+@keyframes shine{
+
+
+
+    to{
+
+
+
+        transform:translateX(120%);
+
+
+
+    }
+
+
+
+}
+
+
+
+.stat:hover{
+
+
+
+    transform:translateY(-5px);
+
+
+
+    border-color:#00d4ff;
+
+
+
+    box-shadow:
+
+
+
+    0 0 30px rgba(0,212,255,.12);
+
+
+
+}
+
+
+
+.stat h3{
+
+
+
+    font-size:32px;
+
+
+
+    font-weight:800;
+
+
+
+    margin-bottom:5px;
+
+
+
+    background:linear-gradient(
+
+        90deg,
+
+        white,
+
+        #00d4ff
+
+    );
+
+
+
+    -webkit-background-clip:text;
+
+
+
+    -webkit-text-fill-color:transparent;
+
+
+
+}
+
+
+
+.stat span{
+
+
+
     color:#999;
+
+
+
     font-size:13px;
-}
-.live-view .eye{ color:#00d4ff; }
-.live-number{ color:white; font-weight:700; }
 
-.section-title{
-    display:flex;
-    align-items:center;
-    gap:10px;
+
+
+    letter-spacing:1px;
+
+
+
+}
+
+
+
+/* ===========================================
+
+   DISCORD CARD
+
+=========================================== */
+
+
+
+.discord{
+
+
+
+    position:relative;
+
+
+
+}
+
+
+
+.discord h4{
+
+
+
     margin-bottom:18px;
-    font-size:15px;
-    font-weight:700;
-}
-.section-title i{ color:#00d4ff; }
 
-/* ===========================================
-   RGB BORDER SYSTEM & GLASS REFLECTION
-=========================================== */
-.frame::after,
-.music-card::after,
-.stat::after{
-    content:"";
-    position:absolute;
-    inset:-1px;
-    border-radius:inherit;
-    padding:1px;
-    background: linear-gradient(130deg, transparent, rgba(255,255,255,.15), transparent, rgba(0,212,255,.25), transparent);
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask-composite:exclude;
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite:xor;
-    opacity:0;
-    transition:.4s;
+
+
 }
 
-.frame:hover::after,
-.music-card:hover::after,
-.stat:hover::after{ opacity:1; }
 
-.frame::before,
-.music-card::before{
-    content:"";
-    position:absolute;
-    top:-140%;
-    left:-50%;
-    width:80%;
-    height:320%;
-    background: linear-gradient(120deg, transparent, rgba(255,255,255,.08), transparent);
-    transform:rotate(25deg);
-    transition:1s;
+
+.discord-status{
+
+
+
+    display:flex;
+
+
+
+    align-items:center;
+
+
+
+    gap:16px;
+
+
+
 }
 
-.frame:hover::before,
-.music-card:hover::before{ left:150%; }
 
-/* ===========================================
-   KEYFRAMES
-=========================================== */
-@keyframes floating{
-    0%{ transform:translateY(0); }
-    50%{ transform:translateY(-8px); }
-    100%{ transform:translateY(0); }
+
+.status-dot{
+
+
+
+    width:14px;
+
+
+
+    height:14px;
+
+
+
+    border-radius:50%;
+
+
+
+    background:#43b581;
+
+
+
+    box-shadow:
+
+
+
+        0 0 15px #43b581,
+
+        0 0 35px #43b581;
+
+
+
+    animation:pulse 2s infinite;
+
+
+
 }
 
-@keyframes titleFlow{
-    from{ background-position:0%; }
-    to{ background-position:300%; }
-}
+
 
 @keyframes pulse{
-    0%{ transform:scale(1); }
-    50%{ transform:scale(1.3); }
-    100%{ transform:scale(1); }
+
+
+
+    0%{
+
+
+
+        transform:scale(1);
+
+
+
+    }
+
+
+
+    50%{
+
+
+
+        transform:scale(1.3);
+
+
+
+    }
+
+
+
+    100%{
+
+
+
+        transform:scale(1);
+
+
+
+    }
+
+
+
 }
 
-@keyframes musicGlow{
-    0%{ box-shadow: 0 0 15px rgba(0,212,255,.10); }
-    50%{ box-shadow: 0 0 45px rgba(0,212,255,.25); }
-    100%{ box-shadow: 0 0 15px rgba(0,212,255,.10); }
+
+
+.discord-info{
+
+
+
+    flex:1;
+
+
+
+}
+
+
+
+.discord-info h3{
+
+
+
+    font-size:18px;
+
+
+
+}
+
+
+
+.discord-info p{
+
+
+
+    color:#aaa;
+
+
+
+    margin-top:4px;
+
+
+
+}
+
+
+
+.activity{
+
+
+
+    margin-top:15px;
+
+
+
+    padding:12px;
+
+
+
+    border-radius:14px;
+
+
+
+    background:rgba(255,255,255,.03);
+
+
+
+    border:1px solid rgba(255,255,255,.05);
+
+
+
+    color:#cfcfcf;
+
+
+
+}
+
+
+
+/* =========================
+
+   SOCIALS
+
+========================= */
+
+
+
+.socials{
+
+
+
+    display:grid;
+
+
+
+    grid-template-columns:repeat(2,1fr);
+
+
+
+    gap:18px;
+
+
+
+    margin-top:25px;
+
+
+
+}
+
+
+
+.socials a{
+
+
+
+    position:relative;
+
+
+
+    overflow:hidden;
+
+
+
+    display:flex;
+
+
+
+    align-items:center;
+
+
+
+    justify-content:center;
+
+
+
+    gap:14px;
+
+
+
+    height:72px;
+
+
+
+    border-radius:18px;
+
+
+
+    text-decoration:none;
+
+
+
+    color:#fff;
+
+
+
+    font-size:17px;
+
+
+
+    font-weight:700;
+
+
+
+    background:rgba(255,255,255,.035);
+
+
+
+    border:1px solid rgba(255,255,255,.08);
+
+
+
+    backdrop-filter:blur(18px);
+
+
+
+    transition:.35s cubic-bezier(.2,.8,.2,1);
+
+
+
+}
+
+
+
+.socials a i{
+
+
+
+    font-size:22px;
+
+
+
+    transition:transform .7s cubic-bezier(.34,1.56,.64,1);
+
+
+
+}
+
+
+
+.socials a:hover{
+
+
+
+    transform:translateY(-6px);
+
+
+
+    background:rgba(255,255,255,.055);
+
+
+
+}
+
+
+
+.socials a:hover i{
+
+
+
+    transform:rotate(360deg) scale(1.15);
+
+
+
+}
+
+
+
+/* Shine */
+
+
+
+.socials a::before{
+
+
+
+    content:"";
+
+
+
+    position:absolute;
+
+
+
+    left:-120%;
+
+
+
+    top:0;
+
+
+
+    width:60%;
+
+
+
+    height:100%;
+
+
+
+    background:linear-gradient(
+
+
+
+        90deg,
+
+
+
+        transparent,
+
+
+
+        rgba(255,255,255,.15),
+
+
+
+        transparent
+
+
+
+    );
+
+
+
+    transform:skewX(-20deg);
+
+
+
+    transition:.8s;
+
+
+
+}
+
+
+
+.socials a:hover::before{
+
+
+
+    left:160%;
+
+
+
+}
+
+.github:hover{
+
+
+
+    border-color:white;
+
+
+
+    box-shadow:0 0 30px rgba(255,255,255,.15);
+
+
+
+}
+
+
+
+.discord:hover{
+
+
+
+    border-color:#5865F2;
+
+
+
+    color:#5865F2;
+
+
+
+    box-shadow:0 0 35px rgba(88,101,242,.3);
+
+
+
+}
+
+
+
+.spotify:hover{
+
+
+
+    border-color:#1DB954;
+
+
+
+    color:#1DB954;
+
+
+
+    box-shadow:0 0 35px rgba(29,185,84,.25);
+
+
+
+}
+
+
+
+.contact:hover{
+
+
+
+    border-color:#00d4ff;
+
+
+
+    color:#00d4ff;
+
+
+
+    box-shadow:0 0 35px rgba(0,212,255,.25);
+
+
+
+}
+
+
+
+/* ===========================================
+
+   LIVE VIEWERS
+
+=========================================== */
+
+
+
+.live-view{
+
+
+
+    display:flex;
+
+
+
+    align-items:center;
+
+
+
+    gap:10px;
+
+
+
+    margin-top:18px;
+
+
+
+    color:#999;
+
+
+
+    font-size:13px;
+
+
+
+}
+
+
+
+.live-view .eye{
+
+
+
+    color:#00d4ff;
+
+
+
+}
+
+
+
+.live-number{
+
+
+
+    color:white;
+
+
+
+    font-weight:700;
+
+
+
+}
+
+
+
+/* ===========================================
+
+   SECTION TITLE
+
+=========================================== */
+
+
+
+.section-title{
+
+
+
+    display:flex;
+
+
+
+    align-items:center;
+
+
+
+    gap:10px;
+
+
+
+    margin-bottom:18px;
+
+
+
+    font-size:15px;
+
+
+
+    font-weight:700;
+
+
+
+}
+
+
+
+.section-title i{
+
+
+
+    color:#00d4ff;
+
+
+
 }
 
 /* ===========================================
-   SCROLLBAR & SELECTION
-=========================================== */
-::-webkit-scrollbar{ width:8px; }
-::-webkit-scrollbar-thumb{ background:#333; border-radius:20px; }
-::-webkit-scrollbar-thumb:hover{ background:#00d4ff; }
 
-::selection{ background:#00d4ff; color:black; }
+   RGB BORDER SYSTEM
 
-
-/* ===========================================
-   RESPONSIVE (TỐI ƯU CHO MOBILE & TABLET)
 =========================================== */
 
-@media (max-width: 1050px) {
-    .profile-card {
-        width: 95%;
-        flex-direction: column; /* Đẩy layout thành chiều dọc */
-        max-height: 90vh; /* Cho thẻ card cao hơn chút trên tablet */
-        padding: 20px;
-    }
-    
-    .left {
-        width: 100%;
-        flex-direction: column;
-    }
 
-    .card-top {
-        flex-direction: column; /* Ép các thành phần bên trong right panel xếp dọc */
-    }
-
-    .stats {
-        grid-template-columns: repeat(3, 1fr);
-    }
-
-    .socials {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-@media (max-width: 768px) {
-    /* Sửa lỗi tràn viền và margin trên mobile */
-    #main {
-        padding: 15px; 
-        height: 100dvh; /* Dùng dvh để không bị lẹm thanh địa chỉ mobile */
-    }
-
-    .profile-card {
-        width: 100%;
-        padding: 15px;
-        gap: 15px;
-        max-height: 95dvh;
-    }
-
-    /* Fix font size (Scale nhỏ lại cho hợp mắt) */
-    .frame h1 {
-        font-size: 24px; /* Giảm từ 28px xuống 24px thay vì tăng lên 34px */
-    }
-    .stat h3, .stat h2 {
-        font-size: 22px;
-    }
-
-    /* Lưới (Grid) thu về 1 cột cho gọn */
-    .stats {
-        grid-template-columns: 1fr; 
-        gap: 10px;
-    }
-    
-    .skills-grid {
-        grid-template-columns: 1fr 1fr; /* Chia 2 cột cho skill trên mobile */
-    }
-
-    .socials {
-        grid-template-columns: 1fr; /* Nút mxh xếp dọc 1 hàng */
-        gap: 10px;
-    }
-    
-    .socials a {
-        height: 55px; /* Thu gọn nút */
-        font-size: 15px;
-    }
-
-    /* Tinh chỉnh Music Card */
-    .music-player {
-        flex-direction: column; /* Xếp dọc ảnh và thông tin bài hát */
-        text-align: center;
-        gap: 12px;
-    }
-
-    .music-player img {
-        width: 120px;
-        height: 120px;
-        margin: 0 auto;
-    }
-
-    .music-controls {
-        justify-content: center; /* Căn giữa các nút bấm nhạc */
-    }
-
-    .music-content h2 {
-        font-size: 22px;
-    }
-
-    /* Thu nhỏ Side Menu để không chiếm hết màn hình */
-    .side-menu {
-        width: 240px;
-        right: -240px;
-    }
-    .side-menu.active {
-        right: 0;
-    }
-
-    /* Scale Loading Screen */
-    .loading-box h1 {
-        font-size: 2.2rem;
-    }
-}
-
-/* ===========================================
-   SMOOTH TRANSITION
-=========================================== */
-*{ scroll-behavior:smooth; }
 
 .frame,
+
 .music-card,
-.stat,
-.badge,
-.socials a,
-.controls button{
-    transition: .3s cubic-bezier(.2,.8,.2,1);
+
+.stat{
+
+
+
+    position:relative;
+
+    overflow:hidden;
+
+
+
 }
+
+
+
+.frame::after,
+
+.music-card::after,
+
+.stat::after{
+
+
+
+    content:"";
+
+
+
+    position:absolute;
+
+
+
+    inset:-1px;
+
+
+
+    border-radius:inherit;
+
+
+
+    padding:1px;
+
+
+
+    background:
+
+    linear-gradient(
+
+        130deg,
+
+        transparent,
+
+        rgba(255,255,255,.15),
+
+        transparent,
+
+        rgba(0,212,255,.25),
+
+        transparent
+
+    );
+
+
+
+    mask:
+
+    linear-gradient(#fff 0 0) content-box,
+
+    linear-gradient(#fff 0 0);
+
+
+
+    mask-composite:exclude;
+
+    -webkit-mask:
+
+    linear-gradient(#fff 0 0) content-box,
+
+    linear-gradient(#fff 0 0);
+
+
+
+    -webkit-mask-composite:xor;
+
+
+
+    opacity:0;
+
+
+
+    transition:.4s;
+
+
+
+}
+
+
+
+.frame:hover::after,
+
+.music-card:hover::after,
+
+.stat:hover::after{
+
+
+
+    opacity:1;
+
+
+
+}
+
+
+
+/* ===========================================
+
+   GLASS REFLECTION
+
+=========================================== */
+
+
+
+.frame::before,
+
+.music-card::before{
+
+
+
+    content:"";
+
+
+
+    position:absolute;
+
+
+
+    top:-140%;
+
+
+
+    left:-50%;
+
+
+
+    width:80%;
+
+
+
+    height:320%;
+
+
+
+    background:
+
+
+
+    linear-gradient(
+
+
+
+        120deg,
+
+
+
+        transparent,
+
+
+
+        rgba(255,255,255,.08),
+
+
+
+        transparent
+
+
+
+    );
+
+
+
+    transform:rotate(25deg);
+
+
+
+    transition:1s;
+
+
+
+}
+
+
+
+.frame:hover::before,
+
+.music-card:hover::before{
+
+
+
+    left:150%;
+
+
+
+}
+
+
+
+/* ===========================================
+
+   FLOAT ANIMATION
+
+=========================================== */
+
+
+
+.profile-card{
+
+
+
+    animation:
+
+
+
+    floating 6s ease-in-out infinite;
+
+
+
+}
+
+
+
+@keyframes floating{
+
+
+
+    0%{
+
+
+
+        transform:translateY(0);
+
+
+
+    }
+
+
+
+    50%{
+
+
+
+        transform:translateY(-8px);
+
+
+
+    }
+
+
+
+    100%{
+
+
+
+        transform:translateY(0);
+
+
+
+    }
+
+
+
+}
+
+
+
+/* ===========================================
+
+   GLOW TITLE
+
+=========================================== */
+
+
+
+.frame h1{
+
+
+
+    background:
+
+
+
+    linear-gradient(
+
+
+
+        90deg,
+
+
+
+        white,
+
+
+
+        #00d4ff,
+
+
+
+        white
+
+
+
+    );
+
+
+
+    background-size:300%;
+
+
+
+    -webkit-background-clip:text;
+
+
+
+    -webkit-text-fill-color:transparent;
+
+
+
+    animation:titleFlow 5s linear infinite;
+
+
+
+}
+
+
+
+@keyframes titleFlow{
+
+
+
+    from{
+
+
+
+        background-position:0%;
+
+
+
+    }
+
+
+
+    to{
+
+
+
+        background-position:300%;
+
+
+
+    }
+
+
+
+}
+
+
+
+/* ===========================================
+
+   BADGES
+
+=========================================== */
+
+
+
+.badge{
+
+
+
+    transition:.25s;
+
+
+
+}
+
+
+
+.badge:hover{
+
+
+
+    transform:
+
+
+
+    translateY(-2px)
+
+
+
+    scale(1.05);
+
+
+
+    background:
+
+
+
+    rgba(0,212,255,.15);
+
+
+
+    border-color:
+
+
+
+    rgba(0,212,255,.45);
+
+
+
+}
+
+
+
+/* ===========================================
+
+   BUTTON RIPPLE
+
+=========================================== */
+
+
+
+.controls button,
+
+.socials a{
+
+
+
+    position:relative;
+
+
+
+    overflow:hidden;
+
+
+
+}
+
+
+
+.controls button::after,
+
+.socials a::after{
+
+
+
+    content:"";
+
+
+
+    position:absolute;
+
+
+
+    width:0;
+
+
+
+    height:0;
+
+
+
+    border-radius:50%;
+
+
+
+    background:
+
+
+
+    rgba(255,255,255,.2);
+
+
+
+    transition:.45s;
+
+
+
+}
+
+
+
+.controls button:hover::after,
+
+.socials a:hover::after{
+
+
+
+    width:220px;
+
+
+
+    height:220px;
+
+
+
+}
+
+
+
+/* ===========================================
+
+   MUSIC GLOW
+
+=========================================== */
+
+
+
+.music-card.playing{
+
+
+
+    animation:musicGlow 2.5s infinite;
+
+
+
+}
+
+
+
+@keyframes musicGlow{
+
+
+
+    0%{
+
+
+
+        box-shadow:
+
+
+
+        0 0 15px rgba(0,212,255,.10);
+
+
+
+    }
+
+
+
+    50%{
+
+
+
+        box-shadow:
+
+
+
+        0 0 45px rgba(0,212,255,.25);
+
+
+
+    }
+
+
+
+    100%{
+
+
+
+        box-shadow:
+
+
+
+        0 0 15px rgba(0,212,255,.10);
+
+
+
+    }
+
+
+
+}
+
+
+
+/* ================= LOADING SCREEN ================= */
+
+#loading {
+
+    position: fixed;
+
+    top: 0;
+
+    left: 0;
+
+    width: 100vw;
+
+    height: 100vh;
+
+    background: rgba(10, 10, 10, 0.85); /* Nền đen hơi trong suốt */
+
+    backdrop-filter: blur(15px); /* Hiệu ứng kính mờ che web bên dưới */
+
+    -webkit-backdrop-filter: blur(15px);
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    z-index: 9999; /* Luôn nằm trên cùng */
+
+    cursor: pointer;
+
+    transition: opacity 0.8s ease, visibility 0.8s ease; /* Hiệu ứng mờ dần khi ẩn */
+
+}
+
+
+
+.loading-box {
+
+    text-align: center;
+
+    color: #fff;
+
+    animation: float 4s ease-in-out infinite; /* Hiệu ứng trôi nổi nhẹ */
+
+}
+
+
+
+.loading-box h1 {
+
+    font-size: 3.5rem;
+
+    font-weight: 800;
+
+    margin-bottom: 15px;
+
+    letter-spacing: 3px;
+
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Phát sáng nhẹ */
+
+}
+
+
+
+.loading-box p {
+
+    font-size: 1.1rem;
+
+    font-weight: 300;
+
+    color: #a0a0a0;
+
+    letter-spacing: 2px;
+
+    animation: pulseText 1.5s infinite alternate; /* Hiệu ứng nhấp nháy */
+
+}
+
+
+
+/* Class dùng để ẩn màn hình loading từ JavaScript */
+
+.loading-hidden {
+
+    opacity: 0;
+
+    visibility: hidden;
+
+}
+
+
+
+/* ================= ANIMATIONS ================= */
+
+@keyframes float {
+
+    0%, 100% { transform: translateY(0); }
+
+    50% { transform: translateY(-10px); }
+
+}
+
+
+
+@keyframes pulseText {
+
+    0% { opacity: 0.4; }
+
+    100% { opacity: 1; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+
+}
+
+
+
+/* ===========================================
+
+   SCROLLBAR
+
+=========================================== */
+
+
+
+::-webkit-scrollbar{
+
+
+
+    width:8px;
+
+
+
+}
+
+
+
+::-webkit-scrollbar-thumb{
+
+
+
+    background:#333;
+
+
+
+    border-radius:20px;
+
+
+
+}
+
+
+
+::-webkit-scrollbar-thumb:hover{
+
+
+
+    background:#00d4ff;
+
+
+
+}
+
+
+
+/* ===========================================
+
+   SELECTION
+
+=========================================== */
+
+
+
+::selection{
+
+
+
+    background:#00d4ff;
+
+
+
+    color:black;
+
+
+
+}
+
+
+
+/* ===========================================
+
+   RESPONSIVE
+
+=========================================== */
+
+
+
+@media(max-width:1050px){
+
+
+
+.profile-card{
+
+
+
+    width:95%;
+
+
+
+    flex-direction:column;
+
+
+
+}
+
+
+
+.left{
+
+
+
+    width:100%;
+
+
+
+}
+
+
+
+.stats{
+
+
+
+    grid-template-columns:repeat(3,1fr);
+
+
+
+}
+
+
+
+.socials{
+
+
+
+    grid-template-columns:repeat(2,1fr);
+
+
+
+}
+
+
+
+.music-card{
+
+
+
+    flex-direction:column;
+
+
+
+}
+
+
+
+.music-left{
+
+
+
+    display:flex;
+
+
+
+    justify-content:center;
+
+
+
+}
+
+
+
+}
+
+
+
+@media(max-width:700px){
+
+
+
+.frame h1{
+
+
+
+    font-size:34px;
+
+
+
+}
+
+
+
+.stats{
+
+
+
+    grid-template-columns:1fr;
+
+
+
+}
+
+
+
+.socials{
+
+
+
+    grid-template-columns:1fr;
+
+
+
+}
+
+
+
+.music-right h2{
+
+
+
+    font-size:22px;
+
+
+
+}
+
+
+
+#album{
+
+
+
+    width:140px;
+
+
+
+    height:140px;
+
+
+
+}
+
+
+
+.profile-card{
+
+
+
+    padding:20px;
+
+
+
+}
+
+
+
+}
+
+
+
+/* ===========================================
+
+   SMOOTH TRANSITION
+
+=========================================== */
+
+
+
+*{
+
+
+
+    scroll-behavior:smooth;
+
+
+
+}
+
+
+
+.frame,
+
+.music-card,
+
+.stat,
+
+.badge,
+
+.socials a,
+
+.controls button{
+
+
+
+    transition:
+
+
+
+    .3s cubic-bezier(.2,.8,.2,1);
+
+
+
+}
+
+
 
 /* ================= SIDE PROJECT MENU ================= */
+
 .side-menu {
+
     position: fixed;
+
     top: 50%;
-    right: -280px;
+
+    right: -280px; /* Ẩn menu đi */
+
     transform: translateY(-50%);
+
     width: 280px;
+
     background: rgba(15, 15, 20, 0.7);
+
     backdrop-filter: blur(15px);
+
     -webkit-backdrop-filter: blur(15px);
+
     border: 1px solid rgba(255, 255, 255, 0.1);
+
     border-right: none;
+
     border-radius: 16px 0 0 16px;
+
     box-shadow: -5px 0 25px rgba(0, 0, 0, 0.5);
+
     transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
     z-index: 1000;
+
 }
+
+
+
+/* Class active để mở menu */
 
 .side-menu.active {
+
     right: 0;
+
 }
+
+
 
 .menu-toggle {
+
     position: absolute;
+
     top: 50%;
+
     left: -40px;
+
     transform: translateY(-50%);
+
     width: 40px;
+
     height: 60px;
+
     background: rgba(15, 15, 20, 0.8);
+
     backdrop-filter: blur(10px);
+
     border: 1px solid rgba(255, 255, 255, 0.1);
+
     border-right: none;
+
     border-radius: 12px 0 0 12px;
+
     display: flex;
+
     justify-content: center;
+
     align-items: center;
+
     cursor: pointer;
+
     transition: background 0.3s, color 0.3s;
+
 }
+
+
 
 .menu-toggle i {
+
     color: #fff;
+
     font-size: 1.2rem;
+
     transition: transform 0.4s;
+
 }
+
+
+
+/* Đổi chiều mũi tên khi menu mở */
 
 .side-menu.active .menu-toggle i {
+
     transform: rotate(180deg);
+
 }
+
+
 
 .menu-toggle:hover {
+
     background: rgba(255, 255, 255, 0.1);
+
 }
+
+
 
 .menu-content {
+
     padding: 25px 20px;
+
 }
+
+
 
 .menu-content h3 {
+
     color: #fff;
+
     font-size: 1.2rem;
+
     font-weight: 700;
+
     margin-bottom: 20px;
+
     text-transform: uppercase;
+
     letter-spacing: 1px;
+
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+
     padding-bottom: 10px;
+
 }
+
+
 
 .project-list {
+
     list-style: none;
+
     padding: 0;
+
     margin: 0;
+
     display: flex;
+
     flex-direction: column;
+
     gap: 15px;
+
 }
+
+
 
 .project-list li a {
+
     display: flex;
+
     align-items: center;
+
     gap: 12px;
+
     color: #ccc;
+
     text-decoration: none;
+
     font-size: 0.95rem;
+
     font-weight: 500;
+
     padding: 10px;
+
     border-radius: 8px;
+
     background: rgba(255, 255, 255, 0.02);
+
     border: 1px solid transparent;
+
     transition: all 0.3s ease;
+
 }
+
+
 
 .project-list li a i {
+
     font-size: 1.1rem;
+
     color: #888;
+
     transition: color 0.3s;
+
 }
+
+
 
 .project-list li a:hover {
+
     background: rgba(255, 255, 255, 0.08);
+
     border-color: rgba(255, 255, 255, 0.2);
+
     color: #fff;
+
     transform: translateX(-5px);
+
 }
 
+
+
 .project-list li a:hover i {
+
     color: #fff;
+
 }
+
