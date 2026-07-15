@@ -3117,175 +3117,137 @@ body{
 =========================================== */
 
 
+/* ===========================================
+   RESPONSIVE (TỐI ƯU CHO MOBILE & TABLET)
+=========================================== */
 
-@media(max-width:1050px){
+@media (max-width: 1050px) {
+    .profile-card {
+        width: 95%;
+        flex-direction: column !important; /* Ép card bao ngoài thành chiều dọc */
+        max-height: 90vh;
+        padding: 20px;
+    }
+    
+    .card-top {
+        flex-direction: column !important; /* Cốt lõi: Ép cột Left và Right chồng lên nhau */
+        gap: 20px;
+    }
 
+    .left {
+        width: 100% !important;
+        flex-direction: row !important; /* Đưa Lượt ghé thăm và Thời tiết nằm ngang cho tiết kiệm không gian */
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 15px;
+    }
 
+    .left > * {
+        flex: 1; /* Cân bằng 2 ô stat/weather */
+        min-width: 130px;
+    }
 
-.profile-card{
+    .right {
+        width: 100% !important;
+    }
 
+    .stats {
+        grid-template-columns: repeat(3, 1fr);
+    }
 
-
-    width:95%;
-
-
-
-    flex-direction:column;
-
-
-
+    .socials {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
-
-
-.left{
-
-
-
-    width:100%;
-
-
-
-}
-
-
-
-.stats{
-
-
-
-    grid-template-columns:repeat(3,1fr);
-
-
-
-}
-
-
-
-.socials{
-
-
-
-    grid-template-columns:repeat(2,1fr);
-
-
-
-}
-
-
-
-.music-card{
-
-
-
-    flex-direction:column;
-
-
-
-}
-
-
-
-.music-left{
-
-
-
-    display:flex;
-
-
-
-    justify-content:center;
-
-
-
-}
-
-
-
-}
-
-
-
-@media(max-width:700px){
-
-
-
-.frame h1{
-
-
-
-    font-size:34px;
-
-
-
-}
-
-
-
-.stats{
-
-
-
-    grid-template-columns:1fr;
-
-
-
-}
-
-
-
-.socials{
-
-
-
-    grid-template-columns:1fr;
-
-
-
-}
-
-
-
-.music-right h2{
-
-
-
-    font-size:22px;
-
-
-
-}
-
-
-
-#album{
-
-
-
-    width:140px;
-
-
-
-    height:140px;
-
-
-
-}
-
-
-
-.profile-card{
-
-
-
-    padding:20px;
-
-
-
-}
-
-
-
+@media (max-width: 768px) {
+    #main {
+        padding: 15px; 
+        height: 100dvh; 
+    }
+
+    .profile-card {
+        width: 100%;
+        padding: 15px;
+        gap: 15px;
+        max-height: 95dvh;
+    }
+
+    /* Sửa lỗi tràn chữ (Nguyễn G Huy bị cắt) */
+    .right {
+        max-width: 100vw;
+        overflow: hidden; /* Ngăn nội dung chọc ra ngoài viền */
+    }
+
+    .frame {
+        width: 100%;
+        word-wrap: break-word; /* Ép bẻ các cụm chữ dài */
+        padding: 15px;
+    }
+
+    .frame h1 {
+        font-size: 24px !important;
+        line-height: 1.3;
+    }
+    
+    .frame p, .frame h4 {
+        white-space: normal;
+        word-break: break-word;
+    }
+
+    /* Thu lưới gọn lại */
+    .stats {
+        grid-template-columns: 1fr; 
+        gap: 10px;
+    }
+    
+    .skills-grid {
+        grid-template-columns: 1fr 1fr; /* Kỹ năng xếp 2 cột */
+        gap: 10px;
+    }
+
+    .socials {
+        grid-template-columns: 1fr; 
+        gap: 10px;
+    }
+    
+    .socials a {
+        height: 55px; 
+        font-size: 15px;
+    }
+
+    /* Music Player thu gọn vào giữa */
+    .music-player {
+        flex-direction: column; 
+        text-align: center;
+        gap: 12px;
+    }
+
+    .music-player img {
+        width: 120px;
+        height: 120px;
+        margin: 0 auto;
+    }
+
+    .music-controls {
+        justify-content: center; 
+    }
+
+    .music-content h2 {
+        font-size: 22px;
+    }
+
+    .side-menu {
+        width: 240px;
+        right: -240px;
+    }
+    .side-menu.active {
+        right: 0;
+    }
+
+    .loading-box h1 {
+        font-size: 2.2rem;
+    }
 }
 
 
